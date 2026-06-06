@@ -35,4 +35,23 @@ class RsvpTest extends TestCase
         // Assert
         $response->assertStatus(404);
     }
+
+    public function test_un_invitado_no_puede_confirmar_mas_cupos_de_los_permitidos()
+    {
+        // 1. Arrange: Creamos un invitado que solo tiene 2 pases asignados
+        $invitado = \App\Models\Invitado::create([
+            'nombre_familia' => 'Familia Martínez',
+            'token' => 'martinez456',
+            'cupos_max' => 2,
+        ]);
+
+        // 2. Act & Assert: Simulamos el comportamiento del componente Livewire
+        // Intentamos enviar que asistirán 3 personas (violando el límite de 2)
+        \Livewire\Livewire::test(\App\Livewire\RsvpForm::class, ['invitado' => $invitado])
+            ->set('asistira', true)
+            ->set('cupos_confirmados', 3)
+            ->call('guardarRsvp')
+            ->assertHasErrors(['cupos_confirmados' => 'max']); 
+            // Esperamos que falle la validación indicando que excedió el 'max'
+    }
 }
