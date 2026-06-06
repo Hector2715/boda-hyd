@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Invitado;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RsvpRecibidoNotification;
 
 class RsvpForm extends Component
 {
@@ -42,7 +44,11 @@ class RsvpForm extends Component
             'mensaje_novios' => $this->mensaje_novios,
             'confirmado_el' => now(),
         ]);
-    }
+
+        // 🔥 DISPARO EN TIEMPO REAL: Enviar correo a los novios
+        // Reemplaza con el correo real de los novios o usa una variable de configuración (.env)
+        Mail::to('bodahectorydaniela@gmail.com')->send(new RsvpRecibidoNotification($this->invitado));
+        }
 
     public function render()
     {

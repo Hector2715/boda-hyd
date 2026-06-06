@@ -4,7 +4,10 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Invitado;
+use App\Mail\RsvpRecibidoNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
+
 
 class RsvpTest extends TestCase
 {
@@ -53,5 +56,36 @@ class RsvpTest extends TestCase
             ->call('guardarRsvp')
             ->assertHasErrors(['cupos_confirmados' => 'max']); 
             // Esperamos que falle la validación indicando que excedió el 'max'
+    }
+
+    public function test_un_correo_de_notificacion_es_enviado_cuando_un_invitado_confirma_su_rsvp()
+    {
+        // 1. Activamos el cascarón (Fake) de correos para congelar los despachos reales
+        Mail::fake();
+
+        // 2. Preparamos un invitado de prueba en la base de datos MariaDB
+        $invitado = \App\Models\Invitado::create([
+            'nombre_familia' => 'Familia Martínez',
+            'token' => 'token-correo-test',
+            'cupos_max' => 5,
+        ]);
+
+        // 3. Simulamos la interacción del componente Livewire enviando el formulario
+        \Livewire\Livewire::test(\App\Livewire\RsvpForm::class, ['invitado' => $invitado])
+            ->set('asistira', true)
+            ->set('cupos_confirmados', 3)
+            ->set('mensaje_novios', '¡Allí estaremos celebrando!')
+            ->call('guardarRsvp');
+
+        // 4. Afirmaciones (Asserts) de Oro:
+        // Aseguramos que se envió exactamente UN correo en total
+        Mail::assertSent(RsvpRecibidoNotification::class, 1);
+
+        // Aseguramos que el correo fue enviado a la dirección correcta de los novios
+        Mail::assertSent(RsvpRecibidoNotification::class, function ($mail) use ($invitado) {
+            return $mail->hasTo('bodahectorydaniela@gmail.com') &&
+                $mail->invitado->id === $invitado->id &&
+                $mail->invitado->nombre_familia === 'Familia Martínez';
+        });
     }
 }

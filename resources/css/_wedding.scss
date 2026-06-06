@@ -1,0 +1,21 @@
+// Estilos específicos para la interfaz de la Boda H&D
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-wedding {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    
+    h3 {
+        color: #6c757d; // Selector anidado SCSS para el subtítulo
+    }
+}
+
+// Estilizaciones personalizadas para los inputs de Livewire si lo requieres
+.form-textarea {
+    resize: none;
+}
