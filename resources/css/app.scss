@@ -1,2 +1,7 @@
+// 1. Importar Bootstrap (O el framework de estilos que uses)
 @import 'bootstrap/scss/bootstrap';
-@import 'wedding';
+
+// 2. Importar nuestra estructura limpia y modular
+@import 'variables';
+@import 'wedding-public';
+@import 'wedding-admin';

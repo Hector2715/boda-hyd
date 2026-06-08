@@ -29,6 +29,7 @@ class RsvpRecibidoNotification extends Mailable
         return new Envelope(
             subject: "RSVP Boda: {$status} - {$this->invitado->nombre_familia}",
         );
+        
     }
 
     public function content(): Content

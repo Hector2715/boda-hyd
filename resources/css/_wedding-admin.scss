@@ -1,0 +1,156 @@
+@import 'variables';
+
+// Navbar superior administrativa
+.navbar-dark.bg-dark {
+    background-color: $wedding-navy !important; // Cambiamos el negro genérico por tu azul marino corporativo
+    border-bottom: 2px solid $wedding-gold;
+}
+
+// Estilizado de las tarjetas de métricas del Dashboard
+.card-metric {
+    background-color: $wedding-card;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(32, 43, 61, 0.04);
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+// Customización de la Tabla de Invitados para que se vea fina
+.table-wedding-container {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(32, 43, 61, 0.08);
+    box-shadow: 0 4px 25px rgba(32, 43, 61, 0.02);
+
+    thead {
+        background-color: rgba(197, 137, 109, 0.05); // Un sutil fondo oro rosa para los encabezados
+        th {
+            color: $wedding-navy;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(197, 137, 109, 0.15);
+        }
+    }
+
+    tbody tr {
+        border-bottom: 1px solid rgba(32, 43, 61, 0.04);
+        &:hover {
+            background-color: rgba(249, 246, 240, 0.6) !important; // Hover con el color papel natural
+        }
+    }
+}
+
+// Inputs de búsqueda estilizados
+.search-admin-input {
+    border-color: rgba(32, 43, 61, 0.15);
+    &:focus {
+        border-color: $wedding-gold;
+        box-shadow: 0 0 0 0.25rem rgba(197, 137, 109, 0.15);
+    }
+}// Variables basadas estrictamente en el logotipo oficial H&D
+$wedding-bg: #f9f6f0;          // Tono papel natural del fondo
+$wedding-card: #ffffff;        // Blanco puro para los contenedores
+$wedding-gold: #f1d6ca;        // Oro rosa / Terracota metalizado del monograma
+$wedding-gold-hover: #b3785c;
+$wedding-navy: #202b3d;        // Azul marino profundo de las hojas oscuras
+$wedding-burgundy: #6b1f38;    // Tono vino de los detalles florales
+
+body {
+    background-color: $wedding-bg;
+    color: $wedding-bg;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Navbar superior de tu Backoffice (reemplaza el negro genérico)
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+// Estilos para el logo dentro de la Navbar
+.navbar-brand {
+    img {
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: scale(1.08) rotate(5deg); // Un sutil efecto interactivo al pasar el mouse
+        }
+    }
+}
+
+.btn-admin-logout {
+            color: #6b1f38 !important;
+            border: 1.5px solid #6b1f38 !important;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s ease-in-out;
+        }
+.btn-admin-logout:hover {
+            color: #ffffff !important;
+            background-color: #6b1f38 !important;
+        }
+
+// Tarjeta con la estética del logo
+.card-wedding {
+    background-color: $wedding-card;
+    border: 1px solid $wedding-burgundy; // Sutil borde oro rosa
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(32, 43, 61, 0.03); // Sombra suavizada con el azul marino
+    
+    h2, h3, h4 {
+        color: $wedding-gold-hover;
+    }
+
+    input {
+        border-color: $wedding-burgundy;
+        color: $wedding-gold-hover;
+    }
+
+    label {
+        color: $wedding-gold-hover;
+    }
+}
+
+// Botón principal con el color del monograma
+// Botón principal optimizado y legible
+.btn-primary {
+    background-color: $wedding-burgundy !important; // Fondo vino elegante para que resalte
+    border-color: $wedding-burgundy !important;
+    color: #ffffff !important;                      // Texto blanco para alto contraste
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: $wedding-gold-hover !important; // Cambia a terracota al pasar el mouse
+        border-color: $wedding-gold-hover !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(197, 137, 109, 0.25);
+    }
+
+    // 🌟 CORRECCIÓN: Restablece el color vino original al perder el foco/clic
+    &:focus, &.focus, &:active, &.active {
+        background-color: $wedding-burgundy !important;
+        border-color: $wedding-burgundy !important;
+        color: #ffffff !important;
+        box-shadow: none !important; // Elimina la sombra gris/azul de Bootstrap
+    }
+
+    // Estado deshabilitado (Mientras el spinner dice "Guardando...")
+    &:disabled, &[disabled] {
+        background-color: #e9ecef !important; // Gris claro neutral de proceso
+        border-color: #dee2e6 !important;     // Borde gris sutil
+        color: #6c757d !important;            // Texto gris atenuado
+        cursor: not-allowed;                  
+        box-shadow: none !important;
+        opacity: 1 !important;                 
+    }
+}
+
+// Badges de estados combinando el vino y el azul marino
+.badge-pending {
+    background-color: rgba(197, 137, 109, 0.15);
+    color: $wedding-gold;
+}

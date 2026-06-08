@@ -1,0 +1,218 @@
+@import 'variables';
+
+// ==========================================================================
+// ESTILOS PARA LA INVITACIÓN PÚBLICA (VISTA MÓVIL PREMIUM)
+// ==========================================================================
+
+.wedding-public-body {
+    // 🌟 1. El destello ameno que te gustó + tu imagen de fondo abarcándolo todos
+    
+    // 🌟 2. Forzamos a que cubra toda la pantalla de forma adaptativa
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; // Hace que el fondo se quede fijo mientras el texto se desliza
+
+    background: radial-gradient(circle at center, #ffffff 0%, $wedding-bg 70%);
+    font-family: 'Cormorant Garamond', serif;
+    color: $wedding-navy;
+    overflow-x: hidden;
+
+    // Logo elegante en la portada
+    .wedding-logo-cover {
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid $wedding-gold;
+        box-shadow: 0 4px 15px rgba(32, 43, 61, 0.06);
+        margin-bottom: 1.5rem;
+    }
+
+    .serif-title {
+        font-family: 'Great Vibes', cursive;
+        color: $wedding-gold;
+        font-size: 4.2rem;
+        text-shadow: 0 2px 4px rgba(32, 43, 61, 0.01);
+        
+        @media (max-width: 576px) {
+            font-size: 3.5rem;
+        }
+    }
+
+    .wedding-date-badge {
+        font-family: sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: $wedding-navy;
+        border-top: 1px solid rgba(197, 137, 109, 0.4);
+        border-bottom: 1px solid rgba(197, 137, 109, 0.4);
+        padding: 0.6rem 2rem;
+        margin-top: 1rem;
+    }
+
+    // Estilos del Reloj de Cuenta Regresiva
+    .countdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 2rem 0 1rem 0;
+        width: 100%;
+        max-width: 400px;
+
+        .countdown-box {
+            background: #ffffff;
+            border: 1px solid rgba(197, 137, 109, 0.2);
+            border-radius: 10px;
+            padding: 0.6rem 0;
+            width: 70px;
+            box-shadow: 0 4px 12px rgba(32, 43, 61, 0.02);
+            text-align: center;
+
+            .number {
+                font-family: sans-serif;
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: $wedding-navy;
+                display: block;
+                line-height: 1.2;
+            }
+
+            .label {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: $wedding-gold;
+                font-weight: 600;
+            }
+        }
+    }
+
+    // Botones premium para las ubicaciones de la boda
+    .btn-wedding-location {
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #6b1f38 !important; // Color borgoña base
+        background-color: transparent;
+        border: 1.5px solid #6b1f38 !important;
+        border-radius: 25px;
+        padding: 8px 24px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 2px 5px rgba(107, 31, 56, 0.05);
+
+        &:hover, &:active, &:focus {
+            color: #ffffff !important;
+            background-color: #c5896d !important; // Oro rosa / Terracota de la paleta
+            border-color: #c5896d !important;
+            box-shadow: 0 4px 12px rgba(197, 137, 109, 0.3);
+            transform: translateY(-2px); // Sutil efecto de elevación táctil
+        }
+    }
+
+    .section-wedding {
+        padding: 5rem 1.5rem;
+        text-align: center;
+        
+        @media (max-width: 576px) {
+            padding: 4rem 1.25rem;
+        }
+    }
+
+    .wedding-icon {
+        font-size: 2.2rem;
+        color: $wedding-gold;
+        margin-bottom: 0.8rem;
+    }
+
+    .divider-flower {
+        font-family: 'Great Vibes', cursive;
+        color: $wedding-gold;
+        font-size: 2.2rem;
+        margin: 1.5rem 0;
+    }
+
+    // Tarjeta del Formulario RSVP
+    .card-wedding-public {
+        background-color: $wedding-card;
+        border: 1px solid rgba(197, 137, 109, 0.25);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(32, 43, 61, 0.05);
+        padding: 2.5rem;
+
+        @media (max-width: 576px) {
+            padding: 2rem 1.25rem;
+        }
+        
+        .form-label {
+            font-family: sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: lighten($wedding-navy, 15%);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid rgba(32, 43, 61, 0.18) !important;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            background-color: #ffffff !important;
+            color: $wedding-navy;
+            transition: all 0.2s ease-in-out;
+
+            &:focus {
+                border-color: $wedding-gold !important;
+                box-shadow: 0 0 0 3px rgba(197, 137, 109, 0.15) !important;
+                outline: none;
+            }
+        }
+
+        .form-check-input {
+            border: 1px solid rgba(32, 43, 61, 0.3);
+            
+            &:checked {
+                background-color: $wedding-gold;
+                border-color: $wedding-gold;
+            }
+        }
+
+        .form-check-label {
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            color: lighten($wedding-navy, 10%);
+        }
+
+        // 🌟 BOTÓN SOLICITADO POR EL USUARIO:
+        // Fondo blanco, bordes del primary ($wedding-navy)
+        // Hover con background terracota/oro ($wedding-gold) cambiando texto a blanco
+        .btn-submit-rsvp {
+            background-color: #ffffff !important;
+            color: $wedding-navy !important;
+            border: 1px solid $wedding-gold !important;
+            font-family: sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            padding: 0.85rem;
+            width: 100%;
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $wedding-gold !important;
+                border-color: $wedding-gold !important;
+                color: #ffffff !important;
+                box-shadow: 0 5px 15px rgba(197, 137, 109, 0.3);
+            }
+        }
+    }
+}

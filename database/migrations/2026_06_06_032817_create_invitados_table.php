@@ -11,10 +11,11 @@ return new class extends Migration
         Schema::create('invitados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_familia');
-            $table->string('token', 16)->unique(); // El hash único para la URL
-            $table->integer('cupos_max');
+            // Hacemos el token nullable para evitar bloqueos SQL en inserciones directas
+            $table->string('token', 16)->unique()->nullable(); 
             $table->integer('cupos_confirmados')->nullable();
-            $table->boolean('asistira')->nullable(); // null = sin responder
+            $table->string('nombres_asistentes')->nullable(); // Asegurar que exista el campo para los nombres detallados
+            $table->boolean('asistira')->nullable(); 
             $table->text('mensaje_novios')->nullable();
             $table->timestamp('confirmado_el')->nullable();
             $table->timestamps();

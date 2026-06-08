@@ -9,12 +9,11 @@ class Invitado extends Model
     protected $table = 'invitados';
 
     protected $fillable = [
-        'nombre_familia',
-        'token',
-        'cupos_max',
-        'cupos_confirmados',
-        'asistira',
-        'mensaje_novios',
-        'confirmado_el',
+    'nombre_familia',
+    'cupos_confirmados', // Cuántos asisten
+    'nombres_asistentes', // Nombre de los que asisten
+    'asistira',
+    'confirmado_el',
+    'mensaje_novios'
     ];
 }
