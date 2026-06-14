@@ -25,11 +25,11 @@ class RsvpRecibidoNotification extends Mailable
     {
         // El asunto del correo cambiará dinámicamente según la respuesta del invitado
         $status = $this->invitado->asistira ? '✅ Confirmado' : '❌ Declinado';
-        
+
         return new Envelope(
             subject: "RSVP Boda: {$status} - {$this->invitado->nombre_familia}",
         );
-        
+
     }
 
     public function content(): Content

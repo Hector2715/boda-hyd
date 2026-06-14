@@ -2,18 +2,25 @@
 
 namespace App\Livewire;
 
+use App\Mail\RsvpRecibidoNotification;
 use App\Models\Invitado;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use App\Mail\RsvpRecibidoNotification; // Asegura que tu clase Mailable esté importada aquí
+
+ // Asegura que tu clase Mailable esté importada aquí
 
 class RsvpForm extends Component
 {
     // Campos del formulario vinculados a la vista
     public $nombre_familia = '';
+
     public $cupos_confirmados = '';
+
     public $nombres_asistentes = '';
+
     public $mensaje_novios = '';
+
     public $aceptar_terminos = false; // El check de conformidad obligatorio
 
     // Mensaje de éxito tras enviar
@@ -67,11 +74,14 @@ class RsvpForm extends Component
         // 🌟 AQUÍ VA EL NUEVO BLOQUE CORREGIDO:
         try {
             // Enviamos el correo usando tu clase Mailable pasándole el modelo recién creado ($invitado)
-            Mail::to('boda@boda-hyd.com')->send(new RsvpRecibidoNotification($invitado));
-            
+            Mail::to([
+                'hector14mejias@gmail.com',
+                'tecnohogar2001@gmail.com'
+            ])->send(new RsvpRecibidoNotification($invitado));
+
         } catch (\Exception $e) {
             // Guarda el error real en storage/logs/laravel.log por si necesitas auditarlo
-            \Illuminate\Support\Facades\Log::error('Error enviando correo de boda: ' . $e->getMessage());
+            Log::error('Error enviando correo de boda: '.$e->getMessage());
         }
 
         // 4. Activar pantalla de éxito
@@ -82,6 +92,6 @@ class RsvpForm extends Component
     {
         // Renderiza usando el layout público de la invitación móvil
         return view('livewire.rsvp-form')
-            ->layout('layouts.app'); 
+            ->layout('layouts.app');
     }
 }

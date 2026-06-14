@@ -11,18 +11,25 @@ class InvitadosIndex extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+
     public $search = '';
 
     // Propiedades compartidas para Creación y Edición
     public $selectedInvitado = null;
+
     public $selected_id = null; // Para almacenar el ID del invitado seleccionado para edición
+
     public $isEditing = false; // Nos dice si el modal está en modo Crear o Editar
 
     // Campos del formulario vinculados con wire:model
     public $nombre_familia = '';
+
     public $cupos_confirmados = '';
+
     public $nombres_asistentes = '';
+
     public $asistira = 1;
+
     public $mensaje_novios = '';
 
     public function updatingSearch()
@@ -79,8 +86,8 @@ class InvitadosIndex extends Component
     public function seleccionarFamilia($id)
     {
         $this->resetValidation();
-        $invitado = \App\Models\Invitado::findOrFail($id);
-        
+        $invitado = Invitado::findOrFail($id);
+
         $this->selected_id = $invitado->id;
         $this->nombre_familia = $invitado->nombre_familia;
         $this->nombres_asistentes = $invitado->nombres_asistentes;
@@ -104,7 +111,7 @@ class InvitadosIndex extends Component
         $this->validate();
 
         if ($this->isEditing) {
-            $invitado = \App\Models\Invitado::findOrFail($this->selected_id);
+            $invitado = Invitado::findOrFail($this->selected_id);
             $invitado->update([
                 'nombre_familia' => $this->nombre_familia,
                 'cupos_confirmados' => $this->cupos_confirmados,
@@ -114,7 +121,7 @@ class InvitadosIndex extends Component
             ]);
             session()->flash('message', 'Familia actualizada correctamente.');
         } else {
-            \App\Models\Invitado::create([
+            Invitado::create([
                 'nombre_familia' => $this->nombre_familia,
                 'cupos_confirmados' => $this->cupos_confirmados,
                 'nombres_asistentes' => $this->nombres_asistentes,
@@ -158,7 +165,7 @@ class InvitadosIndex extends Component
         $totalFamilias = Invitado::count();
         $totalCancelados = Invitado::where('asistira', false)->count();
 
-        $invitados = Invitado::where('nombre_familia', 'like', '%' . $this->search . '%')
+        $invitados = Invitado::where('nombre_familia', 'like', '%'.$this->search.'%')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

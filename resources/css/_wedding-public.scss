@@ -4,6 +4,11 @@
 // ESTILOS PARA LA INVITACIÓN PÚBLICA (VISTA MÓVIL PREMIUM)
 // ==========================================================================
 
+html {
+    scroll-behavior: smooth; // Hace que el viaje a #detalles sea una seda
+    background-color: #f9f6f0;
+}
+
 .wedding-public-body {
     // 🌟 1. El destello ameno que te gustó + tu imagen de fondo abarcándolo todos
     
@@ -17,6 +22,48 @@
     font-family: 'Cormorant Garamond', serif;
     color: $wedding-navy;
     overflow-x: hidden;
+
+// 📜 EFECTO PERGAMINO / ROLLO DE BIENVENIDA
+    .wedding-scroll-box {
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.92) 12%,  // Un blanco más denso en el centro para que no se trasluzca de más
+            rgba(255, 255, 255, 0.92) 88%,
+            rgba(255, 255, 255, 0) 100%
+        ) !important;
+        
+        backdrop-filter: blur(4px);
+        padding: 3rem 2rem !important;
+        text-align: center;
+        width: 100%;
+        
+        // Suavizado en los laterales para dar la sensación de rollo de papel flotando
+        border-radius: 24px; 
+        box-shadow: 0 10px 30px rgba(107, 31, 56, 0.03);
+        border-left: 2px solid rgba(197, 137, 109, 0.4) !important;
+        border-right: 2px solid rgba(197, 137, 109, 0.4) !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
+
+    // 🎨 TEXTO CON MAYOR COLOR Y VISIBILIDAD (Gris oscuro elegante de alto contraste)
+    .wedding-welcome-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.35rem !important; // Un toque más grande para mejorar lectura
+        line-height: 1.6;
+        font-style: italic;
+        color: #2c2124 !important; // Cambiado de text-muted a un tono café/marrón oscuro de alto contraste
+        font-weight: 600; // Le da un sutil grosor sin perder la elegancia
+        margin-bottom: 0;
+    }
+
+    .wedding-scroll-divider {
+        color: #6b1f38;
+        font-size: 0.9rem;
+        margin-top: 1.5rem;
+        opacity: 0.7;
+    }
 
     // Logo elegante en la portada
     .wedding-logo-cover {
@@ -89,7 +136,37 @@
             }
         }
     }
+    // 🌟 BOTÓN PRESTIGIO: VER DETALLES COMBINADO
+    .btn-view-details {
+        font-family: sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        
+        // Colores base: Texto borgoña sobre fondo semi-traslúcido con borde oro rosa
+        color: #6b1f38 !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border: 2px solid rgba(197, 137, 109, 0.6) !important;
+        border-radius: 30px;
+        padding: 12px 35px;
+        display: inline-block;
+        text-decoration: none;
+        
+        // Transiciones suaves y sombra delicada
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 15px rgba(107, 31, 56, 0.08);
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
+        // ✨ Efecto Premium al pasar el cursor o presionar en el móvil
+        &:hover, &:focus, &:active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #6b1f38 0%, #8a2b4b 100%) !important; // Degradado borgoña profundo
+            border-color: #6b1f38 !important;
+            box-shadow: 0 6px 20px rgba(107, 31, 56, 0.3);
+            transform: translateY(-3px) scale(1.02); // Sutil elevación tridimensional
+        }
+    }
     // Botones premium para las ubicaciones de la boda
     .btn-wedding-location {
         font-family: sans-serif;
@@ -114,12 +191,7 @@
     }
 
     .section-wedding {
-        padding: 5rem 1.5rem;
         text-align: center;
-        
-        @media (max-width: 576px) {
-            padding: 4rem 1.25rem;
-        }
     }
 
     .wedding-icon {

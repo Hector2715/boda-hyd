@@ -41,7 +41,7 @@
             data-bs-target="#modalFormulario" 
             data-bs-toggle="modal"
             class="btn btn-primary px-4 py-2 fw-bold">
-            + Registro Manual (Teléfono)
+            + Registro Manual
         </button>
     </div>
 
@@ -52,7 +52,7 @@
                     <tr>
                         <th class="ps-4">Familia / Grupo</th>
                         <th class="text-center">Asistentes</th>
-                        <th class="text-center">Estado RSVP</th>
+                        <th class="text-center">Estado</th>
                         <th>Fecha Confirmación</th>
                         <th class="text-center pe-4">Acciones</th>
                     </tr>
