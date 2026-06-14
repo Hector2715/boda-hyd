@@ -75,7 +75,7 @@ class RsvpForm extends Component
         try {
             // Enviamos el correo usando tu clase Mailable pasándole el modelo recién creado ($invitado)
             Mail::to([
-                'tecnohogar2001@gmail.com',
+                'hector14mejias@gmail.com',
             ])->send(new RsvpRecibidoNotification($invitado));
 
         } catch (\Exception $e) {
