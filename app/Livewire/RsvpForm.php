@@ -77,6 +77,7 @@ class RsvpForm extends Component
             Mail::to([
                 'hector14mejias@gmail.com',
                 'danielamoralesr20@gmail.com',
+                'tecnohogar2001@gmail.com'
             ])->send(new RsvpRecibidoNotification($invitado));
 
         } catch (\Exception $e) {
