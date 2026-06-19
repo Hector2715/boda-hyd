@@ -8,35 +8,30 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
- // Asegura que tu clase Mailable esté importada aquí
-
 class RsvpForm extends Component
 {
     // Campos del formulario vinculados a la vista
     public $nombre_familia = '';
-
     public $cupos_confirmados = '';
-
     public $nombres_asistentes = '';
-
     public $mensaje_novios = '';
-
-    public $aceptar_terminos = false; // El check de conformidad obligatorio
+    public $aceptar_terminos = false; 
 
     // Mensaje de éxito tras enviar
     public $enviado = false;
 
     /**
-     * Reglas de validación para evitar campos vacíos
+     * Reglas de validación base
      */
     protected function rules()
     {
         return [
-            'nombre_familia' => 'required|string|max:255',
+            // 🔥 CANDADO 1: unique en la tabla invitados, columna nombre_familia
+            'nombre_familia' => 'required|string|max:255|unique:invitados,nombre_familia',
             'cupos_confirmados' => 'required|integer|min:1|max:20',
             'nombres_asistentes' => 'required|string|min:5',
             'mensaje_novios' => 'nullable|string|max:500',
-            'aceptar_terminos' => 'accepted', // Obliga a que marquen el check
+            'aceptar_terminos' => 'accepted', 
         ];
     }
 
@@ -45,6 +40,7 @@ class RsvpForm extends Component
      */
     protected $messages = [
         'nombre_familia.required' => 'Por favor, dinos el nombre de tu familia o grupo.',
+        'nombre_familia.unique' => 'Ya existe una familia registrada con ese apellido. Por favor, sé más específico (ej. Martínez Rondón).',
         'cupos_confirmados.required' => 'Indica cuántas personas asistirán.',
         'cupos_confirmados.min' => 'La cantidad de asistentes debe ser al menos 1.',
         'nombres_asistentes.required' => 'Escribe los nombres de las personas que te acompañarán.',
@@ -57,8 +53,24 @@ class RsvpForm extends Component
      */
     public function confirmarAsistencia()
     {
-        // 1. Ejecutar validaciones estrictas
+        // 1. Ejecutar las validaciones estándar (Aquí rebota si el apellido ya existe)
         $this->validate();
+
+        // 🔥 CANDADO 2: Validar cantidad exacta de personas escritas
+        // Limpiamos comas, saltos de línea o guiones comunes que use el invitado y los volvemos un array
+        // Soportará formatos como: "Héctor, Daniela" o "Héctor - Daniela" o "Héctor\nDaniela"
+        $asistentesArray = preg_split('/[,;\-\n\r]+/', $this->nombres_asistentes);
+        
+        // Eliminamos espacios en blanco extra de cada nombre y quitamos elementos vacíos
+        $asistentesArray = array_filter(array_map('trim', $asistentesArray));
+
+        // Contamos cuántas personas logramos extraer del string
+        $totalPersonasEscritas = count($asistentesArray);
+
+        if ($totalPersonasEscritas !== (int) $this->cupos_confirmados) {
+            $this->addError('nombres_asistentes', "Seleccionaste {$this->cupos_confirmados} cupos, pero escribiste el nombre de {$totalPersonasEscritas} personas. Por favor, especifica exactamente los nombres separados por comas.");
+            return;
+        }
 
         // 2. Guardar el registro en la base de datos
         $invitado = Invitado::create([
@@ -71,16 +83,13 @@ class RsvpForm extends Component
         ]);
 
         // 3. Notificar a los novios por correo electrónico
-        // 🌟 AQUÍ VA EL NUEVO BLOQUE CORREGIDO:
         try {
-            // Enviamos el correo usando tu clase Mailable pasándole el modelo recién creado ($invitado)
             Mail::to([
                 'hector14mejias@gmail.com',
                 'danielamoralesr20@gmail.com',
             ])->send(new RsvpRecibidoNotification($invitado));
 
         } catch (\Exception $e) {
-            // Guarda el error real en storage/logs/laravel.log por si necesitas auditarlo
             Log::error('Error enviando correo de boda: '.$e->getMessage());
         }
 
@@ -90,7 +99,6 @@ class RsvpForm extends Component
 
     public function render()
     {
-        // Renderiza usando el layout público de la invitación móvil
         return view('livewire.rsvp-form')
             ->layout('layouts.app');
     }

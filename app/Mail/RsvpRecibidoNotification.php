@@ -27,7 +27,7 @@ class RsvpRecibidoNotification extends Mailable
         $status = $this->invitado->asistira ? '✅ Confirmado' : '❌ Declinado';
 
         return new Envelope(
-            subject: "RSVP Boda: {$status} - {$this->invitado->nombre_familia}",
+            subject: "Boda: {$status} - {$this->invitado->nombre_familia}",
         );
 
     }
