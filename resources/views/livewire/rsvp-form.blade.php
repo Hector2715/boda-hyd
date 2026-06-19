@@ -60,7 +60,11 @@
             </div>
 
             <div class="col-12 mt-2">
-                <button type="submit" class="btn-submit-rsvp">
+                <button type="submit" 
+                        class="btn-submit-rsvp" 
+                        wire:click="confirmarAsistencia" 
+                        wire:loading.attr="disabled" 
+                        wire:target="confirmarAsistencia">
                     <span wire:loading.remove wire:target="confirmarAsistencia">✨ Confirmar Asistencia</span>
                     <span wire:loading wire:target="confirmarAsistencia">Procesando...</span>
                 </button>

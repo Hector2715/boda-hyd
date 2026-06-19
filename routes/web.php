@@ -1,13 +1,8 @@
 <?php
 
-use App\Http\Middleware\EnsureTeamMembership;
 use App\Http\Controllers\Admin\AuthController;
-use App\Livewire\Teams\AcceptInvitation;
-use App\Livewire\Admin\InvitadosIndex;
-use App\Livewire\RsvpForm;
-use App\Models\User;
-use Illuminate\Support\Facades\Route;
 use App\Models\Invitado;
+use Illuminate\Support\Facades\Route;
 
 // ========================================================
 // 🌿 PÁGINA PÚBLICA DE LA BODA (HÉCTOR & DANIELA)
@@ -18,7 +13,8 @@ Route::get('/', function () {
 })->name('invitacion')->name('home');
 
 Route::get('/invitacion/{token}', function ($token) {
-    $invitado = \App\Models\Invitado::where('token', $token)->first();
+    $invitado = Invitado::where('token', $token)->first();
+
     return view('invite', ['invitado' => $invitado]);
 });
 // ========================================================

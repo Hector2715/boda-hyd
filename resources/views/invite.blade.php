@@ -12,14 +12,13 @@
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="wedding-public-body" style="background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(249, 246, 240, 0.85) 85%), url('{{ asset('images/fondo-floral.avif') }}');">
-
-    <header class="section-wedding d-flex flex-column align-items-center justify-content-center min-vh-100 px-3">
+<body class="wedding-public-body" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 70%, rgba(249,246,240,1) 100%), radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(249, 246, 240, 0.8) 85%), url('{{ asset('images/fondo-floral.avif') }}');">
+    <header class="section-wedding d-flex flex-column align-items-center justify-content-center min-vh-md-100 py-5">
         
         <img src="{{ asset('images/logo-hyd.jpeg') }}" alt="Logo Héctor & Daniela" class="wedding-logo-cover">
 
         <div class="mb-1 text-uppercase tracking-widest small text-muted text-center" style="font-family: sans-serif; font-size: 0.75rem; letter-spacing: 0.25em;">
-            Nuestra Unión
+            Invitación a Nuestra Boda
         </div>
         
         <h1 class="serif-title mb-1 text-center">Héctor & Daniela</h1>
@@ -52,18 +51,24 @@
                 “Hay momentos en la vida que son inolvidables, y compartirlos con quienes más amamos los hace eternos.”
             </p>
         </div>
-        
-        <div class="divider-flower">🎕</div>
+
+        <div class="mt-3 mb-2 py-5">
+            <a href="#detalles" class="btn btn-view-details">
+                ✨ Ver Detalles de la Boda ✨
+            </a>
+        </div>
     </header>
 
     <!-- 🌟 NUEVA SECCIÓN: MENSAJE DE BIENVENIDA -->
-    <section class="container text-center py-5 px-4" style="max-width: 650px;">
-        <h2 class="serif-title mb-3" style="font-size: 2.2rem; color: #6b1f38;">¡Bienvenidos a Nuestra Boda!</h2>
-        <p class="text-muted" style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.6; font-style: italic;">
-            Queridos familiares y amigos, la Biblia nos recuerda que el amor todo lo soporta y nunca falla. Para nosotros es una inmensa alegría contar con su presencia en este día tan significativo, donde uniremos nuestras vidas legalmente y bajo los principios que guían nuestro andar. Su cariño y apoyo son un regalo invaluable. ¡Gracias por acompañarnos a celebrar este nuevo comienzo!
-        </p>
-        <div class="text-muted mt-3" style="font-size: 0.9rem;">🎕 ──── 🎕</div>
-    </section>
+    <div class="container my-4 px-3" style="max-width: 650px;">
+        <div class="wedding-scroll-box">
+            <h2 class="serif-title mb-3" style="font-size: 2.2rem; color: #6b1f38;">¡Bienvenidos a Nuestra Boda!</h2>
+            <p class="wedding-welcome-text">
+                Queridos familiares y amigos, la Biblia nos recuerda que el amor todo lo soporta y nunca falla. Para nosotros es una inmensa alegría contar con su presencia en este día tan significativo, donde uniremos nuestras vidas legalmente y bajo los principios que guían nuestro andar. Su cariño y apoyo son un regalo invaluable. ¡Gracias por acompañarnos a celebrar este nuevo comienzo!
+            </p>
+            <div class="wedding-scroll-divider">🎕 ──── 🎕</div>
+        </div>
+    </div>
 
     <div id="detalles" class="bg-white">
         <section class="container section-wedding py-5">

@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Invitado;
+use App\Livewire\RsvpForm;
 use App\Mail\RsvpRecibidoNotification;
+use App\Models\Invitado;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
-
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class RsvpTest extends TestCase
 {
@@ -42,7 +43,7 @@ class RsvpTest extends TestCase
     public function test_un_invitado_no_puede_confirmar_mas_cupos_de_los_permitidos()
     {
         // 1. Arrange: Creamos un invitado que solo tiene 2 pases asignados
-        $invitado = \App\Models\Invitado::create([
+        $invitado = Invitado::create([
             'nombre_familia' => 'Familia Martínez',
             'token' => 'martinez456',
             'cupos_max' => 2,
@@ -50,12 +51,12 @@ class RsvpTest extends TestCase
 
         // 2. Act & Assert: Simulamos el comportamiento del componente Livewire
         // Intentamos enviar que asistirán 3 personas (violando el límite de 2)
-        \Livewire\Livewire::test(\App\Livewire\RsvpForm::class, ['invitado' => $invitado])
+        Livewire::test(RsvpForm::class, ['invitado' => $invitado])
             ->set('asistira', true)
             ->set('cupos_confirmados', 3)
             ->call('guardarRsvp')
-            ->assertHasErrors(['cupos_confirmados' => 'max']); 
-            // Esperamos que falle la validación indicando que excedió el 'max'
+            ->assertHasErrors(['cupos_confirmados' => 'max']);
+        // Esperamos que falle la validación indicando que excedió el 'max'
     }
 
     public function test_un_correo_de_notificacion_es_enviado_cuando_un_invitado_confirma_su_rsvp()
@@ -64,14 +65,14 @@ class RsvpTest extends TestCase
         Mail::fake();
 
         // 2. Preparamos un invitado de prueba en la base de datos MariaDB
-        $invitado = \App\Models\Invitado::create([
+        $invitado = Invitado::create([
             'nombre_familia' => 'Familia Martínez',
             'token' => 'token-correo-test',
             'cupos_max' => 5,
         ]);
 
         // 3. Simulamos la interacción del componente Livewire enviando el formulario
-        \Livewire\Livewire::test(\App\Livewire\RsvpForm::class, ['invitado' => $invitado])
+        Livewire::test(RsvpForm::class, ['invitado' => $invitado])
             ->set('asistira', true)
             ->set('cupos_confirmados', 3)
             ->set('mensaje_novios', '¡Allí estaremos celebrando!')
